@@ -5,8 +5,8 @@ from groups.views import GroupsViewSet, ListUsersGroups, ListGroupMessages
 from chat.views import MessageViewSet
 from login.views import verificaLogin, criaLogin
 from rest_framework import routers
-from django.conf import settings
 from django.conf.urls.static import static
+from django.conf import settings
 
 
 router = routers.DefaultRouter()
@@ -17,7 +17,7 @@ router.register('messages', MessageViewSet, basename='Messages')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(router.urls)),
+    path('', include(router.urls)), 
     path('groups/<int:pk>/users/', ListUsersGroups.as_view()),
     path('groups/<int:pk>/messages/', ListGroupMessages.as_view()),
     path('login/', verificaLogin),
