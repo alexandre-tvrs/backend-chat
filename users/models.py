@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 
 
 def upload_image_user(instance, filename):
@@ -11,7 +12,6 @@ class User(models.Model):
     )
     nome = models.CharField(max_length=50)
     email = models.CharField(max_length=50)
-    senha = models.CharField(max_length=50)
     registro = models.CharField(max_length=50)
     tipo_usuario = models.IntegerField(choices=TIPO, null=False, default=1)
     id_grupo = models.ForeignKey('groups.Group', on_delete=models.CASCADE, null=True, blank=True)
@@ -19,4 +19,3 @@ class User(models.Model):
 
     def __str__(self):
         return self.nome
-    
