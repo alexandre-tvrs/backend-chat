@@ -14,7 +14,7 @@ class User(models.Model):
     email = models.CharField(max_length=50)
     registro = models.CharField(max_length=50)
     tipo_usuario = models.IntegerField(choices=TIPO, null=False, default=1)
-    id_grupo = models.ForeignKey('groups.Group', on_delete=models.CASCADE, null=True, blank=True)
+    id_grupo = models.ForeignKey('groups.Group', on_delete=models.CASCADE, null=True, blank=True, related_name='users')
     img_usuario = models.ImageField(upload_to=upload_image_user, null=True, blank=True)
 
     def __str__(self):

@@ -1,22 +1,21 @@
 from rest_framework import serializers
+from users.serializer import UserSerializer
 from groups.models import Group
 from users.models import User
 from chat.models import Message
 
 
 class GroupSerializer(serializers.ModelSerializer):
+    users = UserSerializer(many=True, read_only=True)
     class Meta:
         model = Group
-        fields = ['id', 'nome', 'descricao', 'id_professor', 'aprovado']
+        fields = ['id', 'nome', 'descricao', 'id_professor', 'aprovado', 'img_group', 'users']    
 
 
-class ListUsersGroupSerializer(serializers.ModelSerializer):
-    tipo_usuario = serializers.SerializerMethodField()
+class AvailableGroupsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ['id', 'nome', 'tipo_usuario']
-    def get_tipo_usuario(self, obj):
-        return obj.get_tipo_usuario_display()
+        model = Group
+        fields = ['id', 'nome', 'descricao', 'id_professor', 'aprovado', 'img_group']
     
 
 class ListGroupMessagesSerializer(serializers.ModelSerializer):
