@@ -15,19 +15,32 @@ def verificaLogin(request):
         user = User.objects.filter(email=email).first()
         if user is None:
             return JsonResponse({'status': 'usuário não encontrado'})
-
-        login = Login.objects.filter(user=user).first()
-
-        if email == user.email and senha == login.senha:
-            hash = random.getrandbits(128)
+        
+        data = {}
+        
+        if user.id_grupo == None:
             data = {
                 'id': user.id, 
                 'nome': user.nome, 
                 'email': user.email, 
                 'registro': user.registro, 
                 'tipo_usuario': user.tipo_usuario,
-                'id_grupo': user.id_grupo.id
+                'id_grupo': None,
                 }
+        else:
+            data = {
+                'id': user.id, 
+                'nome': user.nome, 
+                'email': user.email, 
+                'registro': user.registro, 
+                'tipo_usuario': user.tipo_usuario,
+                'id_grupo': user.id_grupo.id,
+                }
+
+        login = Login.objects.filter(user=user).first()
+
+        if email == user.email and senha == login.senha:
+            hash = random.getrandbits(128)
             return JsonResponse({'status': 'Login efetuado com sucesso', 'user': data, 'token': hash})
         else:
             return JsonResponse({'status': 'Usuário e/ou senha incorretos'})
