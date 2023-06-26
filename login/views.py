@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from login.models import Login
 from users.models import User
 from django.views.decorators.csrf import csrf_exempt
+import random
 
 
 @csrf_exempt
@@ -17,7 +18,8 @@ def verificaLogin(request):
         login = Login.objects.filter(user=user).first()
 
         if email == user.email and senha == login.senha:
-            return JsonResponse({'status': 'Login efetuado com sucesso'})
+            hash = random.getrandbits(128)
+            return JsonResponse({'status': 'Login efetuado com sucesso', 'id': login.user.id, 'token': hash})
         else:
             return JsonResponse({'status': 'Usuário e/ou senha incorretos'})
     else:

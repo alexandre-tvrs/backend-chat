@@ -14,7 +14,12 @@ SECRET_KEY = 'django-insecure-%9%v=zlc25j%2iula)j^ed-=y@m(5&jraml9ivfwo)$4*d$mws
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '*'
+]
+
+CORS_ORIGIN_ALLOW_ALL = True
+
 
 
 # Application definition
@@ -31,11 +36,19 @@ INSTALLED_APPS = [
     'groups',
     'chat',
     'login',
+    'corsheaders',
+    'channels',
+    'admin_extra_buttons',
 ]
+
+WSGI_APPLICATION = 'chattcc.wsgi.application'
+
+ASGI_APPLICATION = "chattcc.asgi.application"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware', 
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -48,7 +61,7 @@ ROOT_URLCONF = 'chattcc.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -60,8 +73,6 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = 'chattcc.wsgi.application'
 
 
 # Database

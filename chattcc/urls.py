@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from users.views import UsersViewSet
+from users.views import UsersViewSet, Bulk
 from groups.views import GroupsViewSet, ListUsersGroups, ListGroupMessages
 from chat.views import MessageViewSet
 from login.views import verificaLogin, criaLogin
@@ -18,6 +18,7 @@ router.register('messages', MessageViewSet, basename='Messages')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)), 
+    path("bulk/users/", Bulk),
     path('groups/<int:pk>/users/', ListUsersGroups.as_view()),
     path('groups/<int:pk>/messages/', ListGroupMessages.as_view()),
     path('login/', verificaLogin),
