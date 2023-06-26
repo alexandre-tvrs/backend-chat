@@ -2,21 +2,22 @@ from rest_framework import viewsets, generics
 from groups.models import Group
 from users.models import User
 from chat.models import Message
-from groups.serializer import GroupSerializer, ListUsersGroupSerializer, ListGroupMessagesSerializer
+from groups.serializer import GroupSerializer, AvailableGroupsSerializer, ListGroupMessagesSerializer
 
 
 class GroupsViewSet(viewsets.ModelViewSet):
     """Exibindo todos os grupos cadastrados"""
-    queryset = Group.objects.all()
+    def get_queryset(self):
+        queryset = Group.objects.all()
+        return queryset
     serializer_class = GroupSerializer
 
 
-class ListUsersGroups(generics.ListAPIView):
-    """Lista de todos os usuários no grupo"""
-    def get_queryset(self):
-        queryset = User.objects.filter(id_grupo=self.kwargs['pk'])
-        return queryset
-    serializer_class = ListUsersGroupSerializer
+class AvailableGroups(generics.ListAPIView):
+    """Exibindo todos os grupos disponíveis"""
+    queryset = Group.objects.filter(aprovado=False)
+    serializer_class = AvailableGroupsSerializer
+
 
 
 class ListGroupMessages(generics.ListAPIView):

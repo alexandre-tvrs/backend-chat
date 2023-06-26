@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 import random
 
 
+
 @csrf_exempt
 def verificaLogin(request):
     if request.method == 'POST':
@@ -19,7 +20,15 @@ def verificaLogin(request):
 
         if email == user.email and senha == login.senha:
             hash = random.getrandbits(128)
-            return JsonResponse({'status': 'Login efetuado com sucesso', 'id': login.user.id, 'token': hash})
+            data = {
+                'id': user.id, 
+                'nome': user.nome, 
+                'email': user.email, 
+                'registro': user.registro, 
+                'tipo_usuario': user.tipo_usuario,
+                'id_grupo': user.id_grupo.id
+                }
+            return JsonResponse({'status': 'Login efetuado com sucesso', 'user': data, 'token': hash})
         else:
             return JsonResponse({'status': 'Usuário e/ou senha incorretos'})
     else:

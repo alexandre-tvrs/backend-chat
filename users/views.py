@@ -1,16 +1,24 @@
 from rest_framework import viewsets
 from users.models import User
-from django.http import JsonResponse
 from users.serializer import UserSerializer
 from django.views.decorators.csrf import csrf_exempt
 import csv
-from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
 
 class UsersViewSet(viewsets.ModelViewSet):
     """Exibindo todos os usuários cadastrados"""
     queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class ProfViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.filter(tipo_usuario=2)
+    serializer_class = UserSerializer
+
+
+class AlunosViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.filter(tipo_usuario=1).filter(id_grupo__isnull=True)
     serializer_class = UserSerializer
 
 
