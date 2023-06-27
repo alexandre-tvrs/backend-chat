@@ -2,6 +2,7 @@ from rest_framework import serializers
 from groups.models import Group
 from users.models import User
 from chat.models import Message
+from timeline.models import Task
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -26,3 +27,8 @@ class ListGroupMessagesSerializer(serializers.ModelSerializer):
         fields = ['nome', 'message']
     def get_nome(self, obj):
         return obj.user.nome
+    
+class ListTimelineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = ['id', 'titulo', 'dataEntrega', 'entregue', 'descricao', 'group']
