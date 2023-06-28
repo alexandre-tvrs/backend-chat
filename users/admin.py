@@ -9,9 +9,9 @@ from django.http import JsonResponse
 
 
 class Users(ExtraButtonsMixin, admin.ModelAdmin):
-    @button(html_attrs={'style': 'background-color:#88FF88;color:black', 'download': "template_bulk.csv", 'href': "http://localhost:8000/media/template_bulk.csv"})
+    @button(html_attrs={'style': 'background-color:#88FF88;color:black', 'download': "template_bulk.csv"})
     def Download(self, request):
-        pass 
+        return redirect("http://localhost:8000/media/template_bulk.csv")
 
     @button(html_attrs={'style': 'background-color:#DC6C6C;color:black'})
     def Bulk(self, request):

@@ -10,12 +10,6 @@ class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = ['id', 'nome', 'descricao', 'id_professor', 'aprovado', 'img_group', 'users']    
-
-
-class AvailableGroupsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Group
-        fields = ['id', 'nome', 'descricao', 'id_professor', 'aprovado', 'img_group']
     
 
 class ListGroupMessagesSerializer(serializers.ModelSerializer):
