@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from users.views import UsersViewSet, Bulk, ProfViewSet, AlunosViewSet
-from groups.views import GroupsViewSet, AvailableGroups, ListGroupMessages
+from groups.views import GroupsViewSet, ListGroupMessages
 from chat.views import MessageViewSet
 from login.views import verificaLogin, criaLogin
 from rest_framework import routers
@@ -21,7 +21,6 @@ urlpatterns = [
     path("bulk/users/", Bulk),
     path('profs/', ProfViewSet.as_view({'get': 'list'})),
     path('alunos/', AlunosViewSet.as_view({'get': 'list'})),
-    path('available_groups/', AvailableGroups.as_view()),
     path('groups/<int:pk>/messages/', ListGroupMessages.as_view()),
     path('login/', verificaLogin),
     path('login/create/', criaLogin),
