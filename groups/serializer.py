@@ -14,12 +14,12 @@ class GroupSerializer(serializers.ModelSerializer):
     
 
 class ListGroupMessagesSerializer(serializers.ModelSerializer):
-    nome = serializers.SerializerMethodField()
+    user = UserSerializer(many=False, read_only=True)
     class Meta:
         model = Message
-        fields = ['nome', 'message']
-    def get_nome(self, obj):
-        return obj.user.nome
+        fields = ['user', 'message']
+    def get_user(self, obj):
+        return obj.user
         
 class ListTimelineSerializer(serializers.ModelSerializer):
     entregueBy = UserSerializer(many=False, read_only=True)
