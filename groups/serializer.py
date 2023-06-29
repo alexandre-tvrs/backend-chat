@@ -3,6 +3,7 @@ from users.serializer import UserSerializer
 from groups.models import Group
 from users.models import User
 from chat.models import Message
+from timeline.models import Task
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -19,3 +20,11 @@ class ListGroupMessagesSerializer(serializers.ModelSerializer):
         fields = ['nome', 'message']
     def get_nome(self, obj):
         return obj.user.nome
+        
+class ListTimelineSerializer(serializers.ModelSerializer):
+    entregueBy = UserSerializer(many=False, read_only=True)
+    class Meta:
+        model = Task
+        fields = ['id', 'titulo', 'dataEntrega', 'arquivo', 'entregue', 'comentario', 'entregueBy', 'descricao', 'group']
+    def get_entregueBy(self, obj):
+        return obj.entregueBy.nome

@@ -18,10 +18,6 @@ ALLOWED_HOSTS = [
     '*'
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
-
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -36,9 +32,16 @@ INSTALLED_APPS = [
     'groups',
     'chat',
     'login',
+    'timeline',
     'corsheaders',
     'channels',
     'admin_extra_buttons',
+]
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
 ]
 
 WSGI_APPLICATION = 'chattcc.wsgi.application'
