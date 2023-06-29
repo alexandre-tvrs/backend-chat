@@ -2,7 +2,8 @@ from rest_framework import viewsets, generics
 from groups.models import Group
 from users.models import User
 from chat.models import Message
-from groups.serializer import GroupSerializer, ListGroupMessagesSerializer
+from timeline.models import Task
+from groups.serializer import GroupSerializer, ListGroupMessagesSerializer, ListTimelineSerializer
 
 
 class GroupsViewSet(viewsets.ModelViewSet):
@@ -28,3 +29,11 @@ class ListGroupMessages(generics.ListAPIView):
         return queryset
     
     serializer_class = ListGroupMessagesSerializer
+    
+class ListGroupTimeline(generics.ListAPIView):
+    """Exibindo todas as tasks do grupo"""
+    def get_queryset(self):
+        queryset = Task.objects.filter(group=self.kwargs['pk'])
+        return queryset
+    
+    serializer_class = ListTimelineSerializer
